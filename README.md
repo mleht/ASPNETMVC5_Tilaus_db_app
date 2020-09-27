@@ -1,4 +1,4 @@
-# ASPNETMVC5_app
+# ASPNETMVC5_Tilaus_db_app
 ASP.NET MVC 5 app
 - SQL database & Entity Framework 6
 - Hand written Login functionality
