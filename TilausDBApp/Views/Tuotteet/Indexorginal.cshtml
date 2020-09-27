@@ -1,0 +1,33 @@
+﻿@model IEnumerable<TilausDBApp.Models.Tuotteet>
+
+@{
+    ViewBag.Title = "Tuotteet";
+}
+
+<h2>Tuotteet</h2>
+
+<p>
+    @Html.ActionLink("Lisää uusi tuote", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>@Html.DisplayNameFor(model => model.Nimi)</th>
+        <th>@Html.DisplayNameFor(model => model.Ahinta)</th>
+        <th>@Html.DisplayNameFor(model => model.Kuvalinkki)</th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td> @Html.DisplayFor(modelItem => item.Nimi)</td>
+        <td>@Html.DisplayFor(modelItem => item.Ahinta)</td>
+        <td>@Html.DisplayFor(modelItem => item.Kuvalinkki)</td>
+        <td>
+            @Html.ActionLink("Muokkaa", "Edit", new { id=item.TuoteID }) |
+           @* @Html.ActionLink("Details", "Details", new { id=item.TuoteID }) | *@
+            @Html.ActionLink("Poista", "Delete", new { id=item.TuoteID })
+        </td>
+    </tr>
+}
+
+</table>

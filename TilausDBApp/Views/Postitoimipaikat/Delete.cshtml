@@ -1,0 +1,31 @@
+﻿@model TilausDBApp.Models.Postitoimipaikat
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+@*<h2>Poisto</h2>*@
+
+<h3>Jos olet varma, että haluat poistaa tämän tiedon, klikkaa isoa punaista 'Poista'-painiketta.</h3>
+<div>
+    <h4>Postitoimipaikat</h4>
+    <hr />
+    <dl class="dl-horizontal">
+
+        <dt>@Html.DisplayNameFor(model => model.Postinumero)</dt>
+        <dd>@Html.DisplayFor(model => model.Postinumero)</dd>
+        <dt>@Html.DisplayNameFor(model => model.Postitoimipaikka)</dt>
+        <dd>@Html.DisplayFor(model => model.Postitoimipaikka)</dd>
+
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+<div class="form-actions no-color">
+    <input type="submit" value="Poista" class="btn btn-primary btn-lg" /> <br /><br />
+    @Html.ActionLink("Takaisin tuotteet sivulle", "Index")
+</div>
+    }
+</div>

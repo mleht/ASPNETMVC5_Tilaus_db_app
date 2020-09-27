@@ -1,0 +1,93 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - TilausDB</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/chart")
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+    @{
+        var className = "";
+        if (ViewBag.LoggedStatus.Equals("Kirjaudu sisään"))
+        {
+            className = "fa fa-sign-in";
+        }
+        else
+        {
+            className = "fa fa-power-off";
+        }
+    }
+
+    @{ 
+        var kirjautuneena = "";
+        if (@Session["Username"] == null)
+        {
+            kirjautuneena = "";
+        }
+        else
+        {
+            kirjautuneena = "(Kirjautunut käyttäjä: " + @Session["Username"] + ")";
+        }
+    }
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <a class="navbar-brand" href="/Home/Index">TilausDB</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarColor01">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Yrityksestä</a>
+                    <div class="dropdown-menu" style="">
+                        <a class="dropdown-item" href="/Home/Index">Etusivu</a>
+                        <a class="dropdown-item" href="/Home/About">Tietoa meistä</a>
+                        <a class="dropdown-item" href="/Home/Contact">Yhteydenotto</a>
+                    </div>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Applikaatiot</a>
+                    <div class="dropdown-menu" style="">
+                        <a class="dropdown-item" href="/Tuotteet/Index">Tuotteet</a>
+                        <a class="dropdown-item" href="/Tilaukset/Index">Tilaukset</a>
+                        <a class="dropdown-item" href="/Tilausrivit/Index">Tilausrivit</a>
+                        <a class="dropdown-item" href="/Tilaukset/TilausOtsikot">Tilaukset & Rivit</a>
+                        <a class="dropdown-item" href="/Asiakkaat/Index">Asiakkaat</a>
+                        <a class="dropdown-item" href="/Postitoimipaikat/Index">Postitoimipaikat</a>
+                        <!-- <a class="dropdown-item" href="/Henkilot/Index">Henkilöt</a> -->
+                        <a class="dropdown-item" href="/Statistics/Index">Tilastoja</a>
+                    </div>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a class="nav-link">@kirjautuneena &nbsp;&nbsp;&nbsp;</a></li>
+                <li class="nav-item"> 
+                    <a class="navbar-brand" href="/Home/Login">@ViewBag.LoggedStatus&nbsp;&nbsp;<i class="@className"></i></a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - TilausDB v. 2.0</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

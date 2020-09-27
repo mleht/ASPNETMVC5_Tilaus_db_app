@@ -1,0 +1,88 @@
+﻿@model IEnumerable<TilausDBApp.Models.Tilaukset>
+
+@{
+    ViewBag.Title = "TilausOtsikot";
+}
+
+@section scripts{
+    <script type="text/javascript">
+        $(function () {
+            $(".showOrderClass").click(function () {
+                let orderId = $(this).data("orderid");
+                // alert("Klikkasit tilausnumeroa: " + orderId);
+                var url = "/Tilaukset/_TilausRivit/?OrderID=" + orderId;
+                $("#orderDetails_" + orderId).append(" <b> Ladataan tilauksen " + orderId + " rivejä...</b>");
+                var $detailDiv = $("#orderDetails_" + orderId);
+                $.get(url, function (data) {
+                    $detailDiv.replaceWith(data);
+                });
+            });
+        });
+    </script>
+}
+
+
+<h2>Tilaukset ja tilausrivit</h2>
+<p>Klikkaa tilausta nähdäksesi tilauksen rivit.</p>
+@*<p>
+        @Html.ActionLink("Create New", "Create")
+    </p>*@
+
+
+<div class="container-fluid">
+
+    <div class="card-header">
+        <a class="card-link">
+            <form>
+                <div class="input-group">
+                    @*<div class="input-group-prepend">
+                            <span class="input-group-text bg-primary font-weight-bold px2">Tilaus</span>
+                        </div>*@
+                    <input type="text" class="form-control bg-primary font-weight-bold px2 text-white text-center" value="Tilaus" disabled>
+                    <input type="text" class="form-control bg-primary font-weight-bold px2 text-white text-center" value="Asiakas" disabled>
+                    <input type="text" class="form-control bg-primary font-weight-bold px2 text-white text-center" value="Toimitusosoite" disabled>
+                    <input type="text" class="form-control bg-primary font-weight-bold px2 text-white text-center" value="Postinumero" disabled>
+                    <input type="text" class="form-control bg-primary font-weight-bold px2 text-white text-center" value="Postitoimipaikka" disabled>
+                    <input type="text" class="form-control bg-primary font-weight-bold px2 text-white text-center" value="Tilaus pvm" disabled>
+                    <input type="text" class="form-control bg-primary font-weight-bold px2 text-white text-center" value="Toimitus pvm" disabled>
+                </div>
+            </form>
+        </a>
+    </div>
+
+    <div id="accordion">
+        @foreach (var item in Model)
+        {
+            <div class="card">
+                <div class="card-header">
+                    <a class="card-link showOrderClass" data-orderid="@item.TilausID" data-toggle="collapse" href="#collapse_@item.TilausID">
+                        <form>
+                            <div class="input-group">
+                                @*<div class="input-group-prepend">
+                                        <span class="input-group-text">@item.TilausID</span>
+                                    </div>*@
+                                <input type="text" class="form-control px-2 text-center" value="@item.TilausID" disabled>
+                                <input type="text" class="form-control px-2 text-center" value="@item.Asiakkaat.Nimi" disabled>
+                                <input type="text" class="form-control px-2 text-center" value="@item.Toimitusosoite" disabled>
+                                <input type="text" class="form-control px-2 text-center" value="@item.Postitoimipaikat.Postinumero" disabled>
+                                <input type="text" class="form-control px-2 text-center" value="@item.Postitoimipaikat.Postitoimipaikka" disabled>
+                                <input type="text" class="form-control px-2 text-center" value="@item.Tilauspvm" disabled>
+                                <input type="text" class="form-control px-2 text-center" value="@item.Toimituspvm" disabled>
+                            </div>
+                        </form>
+                    </a>
+                </div>
+                <div id="collapse_@item.TilausID" class="collapse" data-parent="#accordion">
+                    <div class="card-body">
+                        <div id="orderDetails_@item.TilausID"></div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+
+
+
+

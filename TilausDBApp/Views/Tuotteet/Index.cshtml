@@ -1,0 +1,59 @@
+﻿@model IEnumerable<TilausDBApp.Models.Tuotteet>
+
+@{
+    ViewBag.Title = "Tuotteet";
+}
+
+@if (TempData["testmsg"] != null)
+{
+    @Html.Raw(TempData["testmsg"])
+}
+
+
+<div class="container-fluid">
+    <h2>Tuotteet</h2>
+
+    <p>
+        <button type="button" class="btn btn-primary">@Html.ActionLink("Lisää uusi tuote", "Create")</button>
+    </p>
+
+
+    <div class="card-deck">
+        <div class="row">
+            @foreach (var item in Model)
+            {
+
+                <div class="col-lg-3 col-sm-6">
+
+                    <div class="card text-white bg-primary mb-3">
+
+                        <img class="card-img-top" src="@Html.DisplayFor(modelItem => item.Kuvalinkki)" alt="@Html.DisplayFor(modelItem => item.Kuvalinkki)">
+
+                        <div class="card-body">
+                            <h4 class="card-title">@Html.DisplayFor(modelItem => item.Nimi)</h4><br />
+                            <h6 class="card-subtitle">@Html.DisplayNameFor(model => model.Ahinta)</h6>
+                            <p class="card-text">@Html.DisplayFor(modelItem => item.Ahinta) €</p>
+                            <div class="card-footer" id="test">
+                                <style>
+                                    a {
+                                        color: white;
+                                    }
+
+                                        a.card:hover {
+                                            color: gray;
+                                        }
+                                </style>
+                                @Html.ActionLink("Muokkaa", "Edit", new { id = item.TuoteID }) |
+                                @Html.ActionLink("Poista", "Delete", new { id = item.TuoteID })
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+            }
+        </div>
+    </div>
+</div>
